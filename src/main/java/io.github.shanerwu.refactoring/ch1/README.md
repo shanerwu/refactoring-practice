@@ -43,3 +43,18 @@
     `amountFor()` 使用了來自 `Rental` 的資訊，卻沒有使用 `Customer` 的資訊。
     應該將 `amountFor()` 搬到 `Rental`，並調整程式碼使之適應新家。
     
+4. 找出原本的引用（reference）點，並修改它們，讓它們改用新涵式：
+    
+    在這個例子中，只有一個地方使用到原本在 `Customer` 中的 `amountFor()`，然而在一般情況下，可能要將運用該涵式的所有 Classes 中搜尋一遍。
+    
+    接下來就是要 `去除舊涵式`，讓它呼叫新涵式：
+    
+    ```
+    thisAmount = amountFor(each);
+                ↓
+    thisAmount = each.getCharge();
+    ```
+    
+    而對於舊涵式的去留，Martin Fowler 表示若舊涵式是 `public` 涵式，而又不想修改到其他 Class 時，他會選擇保留舊涵式。
+    
+    
