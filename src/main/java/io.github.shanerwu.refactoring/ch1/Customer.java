@@ -31,23 +31,7 @@ public class Customer {
             Rental each = (Rental) rentals.nextElement(); // 取得一筆租借紀錄
 
             // 計算一筆租片費用
-            switch (each.getMovie().getPriceCode()) {// 取得影片出租價格
-                case Movie.REGULAR: // 普通片
-                    thisAmount += 2;
-                    if (each.getDaysRented() > 2)
-                        thisAmount += (each.getDaysRented() - 2) * 1.5;
-                    break;
-
-                case Movie.NEW_RELEASE: // 新片
-                    thisAmount += each.getDaysRented() * 3;
-                    break;
-
-                case Movie.CHILDRENS: // 兒童片
-                    thisAmount += 1.5;
-                    if (each.getDaysRented() > 3)
-                        thisAmount += (each.getDaysRented() - 3) * 1.5;
-                    break;
-            }
+            thisAmount = amountFor(each);
 
             // 累加常客積點
             frequentRenterPoints++;
@@ -67,6 +51,28 @@ public class Customer {
         result += "You earned " + String.valueOf(frequentRenterPoints) +
                 " frequent renter points";
         return result;
+    }
+
+    private int amountFor(Rental each) {
+        int thisAmount = 0;
+        switch (each.getMovie().getPriceCode()) {// 取得影片出租價格
+            case Movie.REGULAR: // 普通片
+                thisAmount += 2;
+                if (each.getDaysRented() > 2)
+                    thisAmount += (each.getDaysRented() - 2) * 1.5;
+                break;
+
+            case Movie.NEW_RELEASE: // 新片
+                thisAmount += each.getDaysRented() * 3;
+                break;
+
+            case Movie.CHILDRENS: // 兒童片
+                thisAmount += 1.5;
+                if (each.getDaysRented() > 3)
+                    thisAmount += (each.getDaysRented() - 3) * 1.5;
+                break;
+        }
+        return thisAmount;
     }
 
 }
