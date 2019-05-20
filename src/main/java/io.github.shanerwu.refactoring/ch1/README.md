@@ -37,3 +37,9 @@
     
     * 變數名稱是程式碼清晰的關鍵。
     * 選擇能夠表現意圖的名稱。
+   
+3. 使用 Move Method，將程式碼搬移到合適的 Class
+    
+    `amountFor()` 使用了來自 `Rental` 的資訊，卻沒有使用 `Customer` 的資訊。
+    應該將 `amountFor()` 搬到 `Rental`，並調整程式碼使之適應新家。
+    
