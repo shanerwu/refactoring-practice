@@ -53,8 +53,8 @@ public class Customer {
         return result;
     }
 
-    private int amountFor(Rental each) {
-        int thisAmount = 0;
+    private double amountFor(Rental each) {
+        double thisAmount = 0;
         switch (each.getMovie().getPriceCode()) {// 取得影片出租價格
             case Movie.REGULAR: // 普通片
                 thisAmount += 2;
