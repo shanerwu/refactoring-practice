@@ -20,13 +20,13 @@
 
 ### 分解並重組 statement()
 
-找出程式碼的邏輯泥團（Logical Clump），並運用 Extract Method
+找出程式碼的邏輯泥團（Logical Clump），並運用 `Extract Method`。
 
 #### 金額計算
     
-首先將金額計算的 switch 敘述提煉除來成為一個獨立的涵式，接著：
+1. 使用 `Extract Method`，將金額計算的 switch 敘述提煉出來成為一個獨立涵式。
     
-1. 找出函式內的區域變數和參數：
+2. 找出函式內的區域變數和參數：
 
     `each`, `thisAmount`（前者不會被修改，後者會被修改）。
     * 不會被修改的變數，可以被當成參數傳入新的函式。
@@ -35,7 +35,7 @@
    然而在修改後執行測試，發現測試失敗，因為 `thisAmount` 的返回值變成了 `int`，而不是原先的 `double`，但由於修改的幅度很小，所以很快就發現問題。
    > 以微小的步伐修改程式，如果你犯下錯誤，便很容易發現它。
    
-2. 修改變數名稱：
+3. 修改變數名稱：
    
     ```
     isAmount -> result
@@ -45,12 +45,12 @@
     * 變數名稱是程式碼清晰的關鍵。
     * 選擇能夠表現意圖的名稱。
    
-3. 使用 Move Method，將程式碼搬移到合適的 Class
+4. 使用 Move Method，將程式碼搬移到合適的 Class
     
     `amountFor()` 使用了來自 `Rental` 的資訊，卻沒有使用 `Customer` 的資訊。
     應該將 `amountFor()` 搬到 `Rental`，並調整程式碼使之適應新家。
     
-4. 找出原本的引用（reference）點，並修改它們，讓它們改用新涵式：
+5. 找出原本的引用（reference）點，並修改它們，讓它們改用新涵式：
     
     在這個例子中，只有一個地方使用到原本在 `Customer` 中的 `amountFor()`，然而在一般情況下，可能要將運用該涵式的所有 Classes 中搜尋一遍。
     
@@ -64,7 +64,7 @@
     
     而對於舊涵式的去留，Martin Fowler 表示若舊涵式是 `public` 涵式，而又不想修改到其他 Class 時，他會選擇保留舊涵式。
     
-5. 使用 Replace Temp with Query 去除多餘的變數：
+6. 使用 Replace Temp with Query 去除多餘的變數：
 
     `thisAmount` 在接受 `each.getCharge()` 的結果後就不再做任何改變，應該盡量除去這種暫時性變數。
     
