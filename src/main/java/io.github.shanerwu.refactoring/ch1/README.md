@@ -81,3 +81,6 @@
 
     `each`, `frequentRenterPoints`
     
+3. 使用 Replace Temp with Query 去除多餘的變數：
+    
+    在 `Customer` 中使用 `Query Method` 取代 `totalAmount` 和 `frequentRenterPoints` 這兩個暫時變數。
