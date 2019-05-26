@@ -30,11 +30,8 @@ public class Customer {
             Rental each = (Rental) rentals.nextElement(); // 取得一筆租借紀錄
 
             // 累加常客積點
-            frequentRenterPoints++;
-
             // 若租借新片，且租期為兩天以上，再累加一次常客積點
-            if (each.getMovie().getPriceCode() == Movie.NEW_RELEASE && each.getDaysRented() > 1)
-                frequentRenterPoints++;
+            frequentRenterPoints += each.getFrequentRenterPoints();
 
             // 顯示此筆租借資料
             result += "\t" + each.getMovie().getTitle() + "\t" +
